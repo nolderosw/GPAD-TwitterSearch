@@ -8,7 +8,7 @@ banco = cliente.twitters_febre_dor
 #twitters_BD = banco.twitters_campina3
 #twitters_BD = banco.twitters_febre
 #twitters_BD = banco.minas_gerais
-twitters_BD = banco.geral
+#twitters_BD = banco.geral
 #twitters_BD = banco.manaus_acre_roraima
 #twitters_BD = banco.matogrosso_rondonia
 #twitters_BD = banco.matogrosso_do_sul
@@ -23,8 +23,13 @@ twitters_BD = banco.geral
 #twitters_BD = banco.maranhao
 #twitters_BD = banco.piaui
 #twitters_BD = banco.PE_PB_RN_AL_SERG_CE
+lista_regioes = [banco.twitters_campina3, banco.minas_gerais, banco.manaus_acre_roraima, banco.matogrosso_rondonia, banco.matogrosso_do_sul,
+                 banco.parana_santacatatina_saopaulo, banco.riograndedosul, banco.riodejaneiro_espiritosanto, banco.bahia, banco.goias, banco.tocantins, banco.amapa, banco.para,
+                 banco.maranhao, banco.piaui, banco.PE_PB_RN_AL_SERG_CE]
+twitters_BD = lista_regioes[4]
 try:
-    tso = TwitterSearch.TwitterSearchOrder() # create a TwitterSearchOrder object 
+    tso = TwitterSearch.TwitterSearchOrder() # create a TwitterSearchOrder object
+    lista_geoloc = []
     #tso.set_keywords(['dengue','dor'])# let's define all words we would like to have a look for
     #tso.set_keywords(['perda de apetite'])
     #tso.set_keywords(['Ictericia'])

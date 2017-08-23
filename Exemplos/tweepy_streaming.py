@@ -9,9 +9,9 @@ consumer_secret = 'Z0UND2lOgl5WdgzOV1UZf3Ogo6HAaNiWrBu6Tjl7FWz74x1saU'
 access_token = '859897569908064256-b2myOYtVPuYOCVkEOrEQkgEm0FWKQPv'
 access_token_secret = 'P0M3QEO86NP7Fg6ovzGCCbO0U1FwOvxZfIkU2wdAQ1ffi'
 
-#client = MongoClient('localhost', 27017)
-
-#db = client.twitterdb
+cliente = MongoClient('localhost', 27017)
+banco = cliente.dados
+twitters_BD = banco.Febre_Amarela
 
 #col = db.tweets
 
@@ -19,7 +19,7 @@ auth = tweepy.OAuthHandler(consumer_key, consumer_secret)
 
 auth.set_access_token(access_token, access_token_secret)
 
-keywords = ['febre amarela']
+keywords = ['dor','cabeca','vomito','vomitando','tontura']
 
 class MyListener(tweepy.StreamListener):
     def on_data(self, dados):
@@ -36,7 +36,10 @@ class MyListener(tweepy.StreamListener):
         #tweetind = col.insert_one(obj).inserted_id
         print('Nome: %s\nMensagem: %s\nData de Criação: %s\nStatus de rt: %s\n' % (name, text, created_at, rt))
         #pprint(tweet)
+        # TWEED ARMAZENADO
+        twitters_BD.insert_one(tweet).inserted_id
         return True
+
 
     #def on_status(self, status):
     #    if 'febre amarela' in status.text.lower():
