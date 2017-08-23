@@ -24,7 +24,7 @@ twitters_BD = banco.geral
 #twitters_BD = banco.piaui
 #twitters_BD = banco.PE_PB_RN_AL_SERG_CE
 try:
-    tso = TwitterSearch.TwitterSearchOrder() # create a TwitterSearchOrder object 
+    tso = TwitterSearch.TwitterSearchOrder() # create a TwitterSearchOrder object
     #tso.set_keywords(['dengue','dor'])# let's define all words we would like to have a look for
     #tso.set_keywords(['perda de apetite'])
     #tso.set_keywords(['Ictericia'])
