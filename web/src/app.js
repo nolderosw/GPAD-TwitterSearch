@@ -13,11 +13,12 @@ mongoose.connect('mongodb://wesley150:147senha@ds125896.mlab.com:25896/teste_twi
 // ex: const Product = require('./models/product');
 
 //carrega as rotas
-const testeRoute = require('./routes/teste');
 const indexRoute = require('./routes/index');
 
+//colocando as pastas public e bower_components como estaticas pelo express!
 app.use('/bower_components', express.static(path.join(__dirname, '../bower_components')))
 app.use('/public', express.static(path.join(__dirname, '../public')))
+app.use('/Exemplos', express.static(path.join(__dirname, '../../Exemplos')))
 
 app.use(bodyParser.json()); //todo conteudo do corpo da requisicao é convertido pra json
 app.use(bodyParser.urlencoded({ extended: false })); //codificacao da url
@@ -25,7 +26,6 @@ app.use(bodyParser.urlencoded({ extended: false })); //codificacao da url
 //rotas paginas
 
 //rotas serviços
-app.use('/teste', testeRoute); //usando a rota route quando o usuario acessar '/'
 app.use('/', indexRoute); //usando a rota route quando o usuario acessar '/'
 
 module.exports = app; //exportando modulo
