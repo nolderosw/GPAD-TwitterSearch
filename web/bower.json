@@ -1,0 +1,20 @@
+{
+  "name": "estudo_node",
+  "description": "",
+  "main": "src/app.js",
+  "authors": [
+    "wesley150 <wesley150wow@gmail.com>"
+  ],
+  "license": "ISC",
+  "homepage": "https://github.com/nolderosw/GPAD-TwitterSearch",
+  "ignore": [
+    "**/.*",
+    "node_modules",
+    "bower_components",
+    "test",
+    "tests"
+  ],
+  "dependencies": {
+    "angular": "^1.6.7"
+  }
+}
