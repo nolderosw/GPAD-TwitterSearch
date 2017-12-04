@@ -1,5 +1,5 @@
 import sys
 #print sys.argv[0]
-print (sys.argv[1])
-print (sys.argv[2])
+print ("Latitude vindo do python: "+ sys.argv[1])
+print ("Longitude vindo do python: "+ sys.argv[2])
 print ("Pegou!!!")
