@@ -76,7 +76,7 @@
                     }));
                     var elem = angular.element(document.querySelector('[ng-app]'));
                     var injector = elem.injector();
-                     var $rootScope = injector.get('$rootScope');   
+                    var $rootScope = injector.get('$rootScope');   
                      $rootScope.$apply(function(){
                        $rootScope.location = place.geometry.location;
                      });
