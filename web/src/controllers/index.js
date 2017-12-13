@@ -7,7 +7,7 @@ exports.get = (req, res, next) => {
 };
 exports.postFromPython = (req, res, next) => {
     var options = {
-        args: [req.body.location.lat, req.body.location.lng], 
+        args: [req.body.location.lat, req.body.location.lng, req.body.raio], 
       };  
       PythonShell.run('../Exemplos/teste.py', options, function (err, results) {
           if (err) throw err;

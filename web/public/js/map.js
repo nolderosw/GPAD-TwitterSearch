@@ -17,6 +17,7 @@ function initAutocomplete() {
     });
 
     var markers = [];
+    var circles = [];
     // Listen for the event fired when the user selects a prediction and retrieve
     // more details for that place.
     searchBox.addListener('places_changed', function () {
@@ -31,7 +32,7 @@ function initAutocomplete() {
             marker.setMap(null);
         });
         markers = [];
-
+        
         // For each place, get the icon, name and location.
         var bounds = new google.maps.LatLngBounds();
         places.forEach(function (place) {
@@ -54,12 +55,31 @@ function initAutocomplete() {
                 title: place.name,
                 position: place.geometry.location
             }));
+
             var elem = angular.element(document.querySelector('[ng-app]'));
             var injector = elem.injector();
             var $rootScope = injector.get('$rootScope');
-            $rootScope.$apply(function () {
+            
+            for (var i = 0; i < circles.length; i++) { //limpa os circulos
+                circles[i].setMap(null);
+            }
+            circles = [];
+            var circle = new google.maps.Circle({ //desenha circulo
+                strokeColor: '#FF0000',
+                strokeOpacity: 0.8,
+                strokeWeight: 2,
+                fillColor: '#FF0000',
+                fillOpacity: 0.35,
+                map: map,
+                center: place.geometry.location,
+                radius: $rootScope.radius_circle
+            });
+            circles.push(circle);
+
+            $rootScope.$apply(function () { //envia localização para o rootscope
                 $rootScope.location = place.geometry.location;
             });
+            
             if (place.geometry.viewport) {
                 // Only geocodes have viewport.
                 bounds.union(place.geometry.viewport);

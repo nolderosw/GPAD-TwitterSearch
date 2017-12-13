@@ -2,23 +2,65 @@
 <html ng-app="app">
 
 <head>
-    <title>Teste maps</title>
+    <title>Twitters Febre Amarela - GPAD IFPB-CG</title>
+    <link rel="shortcut icon" href="../public/img/favicon.ico" />
     <link rel="stylesheet" href="../public/css/custom.css">
+    <link rel="stylesheet" href="../../bower_components/bootstrap/dist/css/bootstrap.min.css">
     <script src="https://cdnjs.cloudflare.com/ajax/libs/jquery/3.1.0/jquery.js"></script>
     <script src="../../bower_components/angular/angular.js"></script>
+    <script src="../../bower_components/bootstrap/dist/js/bootstrap.min.js"></script>
     <script src="../public/js/controllers/indexController.js" type="text/javascript"></script>
     <!-- not created yet -->
 </head>
 
-<body>
+<body style="overflow-x:hidden">
+    <header>
+        <nav class="navbar navbar-default">
+            <div class="container-fluid">
+                <div class="navbar-header">
+                    <div class="navbar-brand">
+                        <label>Twitters Febre Amarela - GPAD (Grupo de Análise de Dados - IFPB-CG)</label>
+                    </div>
+                </div>
+            </div>
+        </nav>
+    </header>
     <div ng-controller="indexController">
-        <input id="pac-input" class="controls" type="text" placeholder="Pesquisar Lugar...">
-        <div id="map"></div>
-        {{location}}
-        <button ng-click="chama_python()" class="btn">Teste</button>
+        <div class="row">
+            <div class="col-lg-6">
+                <div class="col-lg-10">
+                    <label>Raio de pesquisa</label>
+                    <select ng-model="circle_radius" ng-change="muda_raio(circle_radius)" class="form-control">
+                        <option value="">Selecione um raio (default = 1km)</option>
+                        <option value=1000>1 km</option>
+                        <option value=10000>10 km</option>
+                        <option value=100000>100 km</option>
+                        <option value=500000>500 km</option>
+                        <option value=1000000>1.000 km</option>
+                    </select>
+                </div>
+                <button style="margin-top:3.7%" ng-click="chama_python()" class="btn btn-primary">Pesquisar</button>
+                <input id="pac-input" class="controls" type="text" placeholder="Pesquisar Lugar...">
+                </br>
+                </br>
+                <div style="margin-left: 2%" id="map"></div>
+            </div>
+            <div class="col-lg-6">
+                <div class="panel panel-default">
+                    <!-- Default panel contents -->
+                    <div class="panel-heading">Twiters Encontrados: </div>
+
+                    <!-- List group -->
+                    <ul class="list-group" style="max-height: 520px; overflow-y:scroll;">
+                        <li class="list-group-item" ng-repeat="twitter in twitters track by $index">{{twitter}}</li>
+                    </ul>
+                </div>
+            </div>
+        </div>
     </div>
 </body>
 
 <script defer src="https://maps.googleapis.com/maps/api/js?key=AIzaSyDEfM8cESD3vBe2xuFdl213dEWb3pR4dAk&libraries=places&callback=initAutocomplete"></script>
 <script src="../public/js/map.js" type="text/javascript"></script>
+
 </html>
