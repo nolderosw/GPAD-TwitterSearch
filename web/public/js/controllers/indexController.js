@@ -10,8 +10,11 @@ app.controller('indexController', function($scope, $http, $rootScope, $window) {
             data: {location: $rootScope.location, raio: $rootScope.radius_circle},
         })
         .then(function(response) {
-            console.log(response.data.Resultado);
+            if(!response.data.Resultado){
+                alert("Não foram encontrados Twitters!");
+            }
             $scope.twitters = response.data.Resultado;
+
         });
     }
     $scope.muda_raio = function (value){

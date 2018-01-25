@@ -7,7 +7,7 @@ const app = express(); //criando um app com express
 const router = express.Router(); //criando o sistema de rotas, para o usuario acessar a app a partir de uma url
 
 //conectando com o banco de dados
-mongoose.connect('mongodb://wesley150:147senha@ds125896.mlab.com:25896/teste_twitnode');
+//mongoose.connect('mongodb://wesley150:147senha@ds125896.mlab.com:25896/teste_twitnode');
 
 //carregando os models
 // ex: const Product = require('./models/product');

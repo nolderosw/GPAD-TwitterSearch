@@ -6,10 +6,9 @@ import unicodedata
 
 # Criação da conexão com banco de dados e de um cursor para pecorrer
 cliente = MongoClient('localhost', 27017)
-banco = cliente.dados
-twitters_BD = banco.Febre_Amarela
+banco = cliente.twitters_febre_dor
+twitters_BD = banco.matogrosso_do_sul
 cursor = twitters_BD.find()
-
 
 def criar_tokens(lista_tweets):
     """Faz a tokenização dos tweets"""
