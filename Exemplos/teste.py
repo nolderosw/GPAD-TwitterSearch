@@ -30,7 +30,7 @@ def retirar_stopwords(lista_tweets):
         nova_lista.append([])
         for palavra in lista_tweets[index]:
             nova_palavra = regex.sub(u'', palavra)
-            if not nova_palavra == u'' and nova_palavra not in stopwords and not palavra.isdigit() and palavra != "RT":
+            if not nova_palavra == u'' and nova_palavra not in stopwords and not bool(re.search(r'\d', palavra)) and palavra != "RT":
                 nova_lista[index].append(nova_palavra)
 
     return nova_lista
@@ -128,6 +128,7 @@ try:
 
     lista_tweets_tratados = remove_urls(lista_tweets)
     lista_tweets_tratados = remove_hashtag(lista_tweets_tratados)
+    lista_tweets_tratados = remove_usuario(lista_tweets_tratados)
     lista_tweets_tratados = criar_tokens(lista_tweets_tratados)
     lista_tweets_tratados = retirar_stopwords(lista_tweets_tratados)
     lista_tweets_tratados = retirar_acentos(lista_tweets_tratados)
