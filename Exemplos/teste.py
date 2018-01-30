@@ -13,6 +13,10 @@ lat = float(sys.argv[1])
 lng = float(sys.argv[2])
 raio = int(sys.argv[3]) / 1000
 
+sintomas_febre = ['cabeca','pele', 'amarela', 'olhos', 'olho', 'amarelos', 'amarelo', 'amarelado', 'amarelada', 'amarelados','nauseas', 'nausea','vomito', 'vomitar', 'vomitando']
+sintomas_outas = ['musculos','articulacoes','articulares','articulacao','manchas', 'corpo', 'reacao']
+estatisticas = []
+estatisticas_gerais = []
 
 def criar_tokens(lista_tweets):
     tokens = [nltk.word_tokenize(tweet) for tweet in lista_tweets]
@@ -89,6 +93,32 @@ def remove_unicode(lista_tweets):
                 nova_lista[indice].append(str(palavra))
     return nova_lista
 
+def get_estatisticas(lista_tweets):
+    qt_baixa = 0
+    qt_media = 0
+    qt_alta = 0
+    qt_geral = len(lista_tweets)
+    for tweet in lista_tweets:
+        score = 0
+        for palavra in sintomas_febre:
+            if (palavra in tweet):
+                score = score + 1
+        for palavra in sintomas_outas:
+            if (palavra in tweet):
+                score = score - 1
+        if(score < 0):
+            estatisticas.append('BAIXA')
+            qt_baixa = qt_baixa + 1
+        elif(score <= 1):
+            estatisticas.append('MEDIA')
+            qt_media = qt_media + 1
+        elif(score > 1):
+            estatisticas.append('ALTA')
+            qt_alta = qt_alta + 1
+    estatisticas_gerais.append(qt_baixa)
+    estatisticas_gerais.append(qt_media)
+    estatisticas_gerais.append(qt_alta)
+    estatisticas_gerais.append(qt_geral)
 
 def imprimi_tweets(lista):
     for texto in lista:
@@ -124,7 +154,8 @@ try:
 
         data = dateutil.parser.parse(data_timezone)  # converte a data para ficar bonitinha
         # print('@%s tweetou: %s em %s' % (tweet['user']['screen_name'], tweet['text'], data.strftime('%d/%m/%Y %H:%M:%S')))
-        lista_tweets.append(tweet)
+        if(tweet['text'].split()[0] != 'RT'):
+            lista_tweets.append(tweet)
 
     lista_tweets_tratados = remove_urls(lista_tweets)
     lista_tweets_tratados = remove_hashtag(lista_tweets_tratados)
@@ -133,11 +164,14 @@ try:
     lista_tweets_tratados = retirar_stopwords(lista_tweets_tratados)
     lista_tweets_tratados = retirar_acentos(lista_tweets_tratados)
     lista_tweets_tratados = remove_unicode(lista_tweets_tratados)
+    get_estatisticas(lista_tweets_tratados)
 
     cont = 0
     for tweet in lista_tweets:
-        print('@%s tweetou: %s em %s twitter tratado: %s' % (
-        tweet['user']['screen_name'], tweet['text'], data.strftime('%d/%m/%Y %H:%M:%S'), lista_tweets_tratados[cont]))
+        print('@%s tweetou: %s em %s com chance: %s' % (
+        tweet['user']['screen_name'], tweet['text'], data.strftime('%d/%m/%Y %H:%M:%S'), estatisticas[cont]))
         cont = cont + 1
+    print('Quantidade de twitters minerados: %d' % (len(lista_tweets_tratados)))
+    print(estatisticas_gerais)
 except TwitterSearchException as e:  # take care of all those ugly errors if there are some
     print(e)
